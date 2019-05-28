@@ -19,8 +19,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.supermarket.models.User;
+import com.supermarket.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private DataSource dataSource;
@@ -38,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
 
+	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.
 			jdbcAuthentication()
@@ -47,21 +55,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.passwordEncoder(bCryptPasswordEncoder);
 	}
 
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {	
 		http.
 			authorizeRequests()
+				.antMatchers("/webjars/**").permitAll()
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/register").permitAll()
-				.antMatchers("/webjars/**", "/error**").permitAll()
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated()
 				.antMatchers("/user/**").hasAuthority("USER").anyRequest().authenticated()
+				.antMatchers("/includes/**").hasAnyAuthority("USER").anyRequest().authenticated()
 				.and().formLogin()
 				.loginPage("/login").successHandler(new AuthenticationSuccessHandler() {
 				    @Override
 				    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 				    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+						User user = userService.findUserByEmail(auth.getName());
 						
+						
+				    	
+						new DefaultRedirectStrategy().sendRedirect(request, response, "/user/files");
 				    }
 				})
 				.failureUrl("/login?error=true")
@@ -73,12 +87,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.accessDeniedPage("/access-denied");
 	}
 
+	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web
 			.ignoring()
-				.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**");
+				.antMatchers("/resources/**", "/static/**", "/rss/**", "/css/**", "/js/**", "/libs/**", "/temp/**");
 	}
-
+	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

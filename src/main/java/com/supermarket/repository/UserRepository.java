@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.supermarket.models.User;
 
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, String>{
+public interface UserRepository extends JpaRepository<User, Long>{
 	User findByEmail(String email);
-	Optional<User> findById(String id);
+	Optional<User> findById(long id);
 	boolean existsByEmail(String email);
 }
 

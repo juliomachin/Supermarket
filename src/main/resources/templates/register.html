@@ -5,72 +5,65 @@
 <head>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Register Drotium Intranet">
-<meta name="author" content="Drotium">
+<meta name="description" content="">
 
-<title>Intranet Register</title>
+<title>Register</title>
 
-<!-- Bootstrap core CSS -->
-<th:block th:include="includes/links :: links"></th:block>
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/all.min.css}" />
 
-<!-- Custom styles for this template -->
-<link type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
 </head>
-
-<body style="overflow: hidden">
-	<img th:src="@{/rss/login.png}" data-author="Cristina Arpon" class="img-fluid rounded rounded-circle h-75" style="position:absolute;bottom:-20%;z-index: 0;">
+<body>
 	
-	<div class="container">
-		<div class="text-center mb-4">
-			<h2 class="h3 mb-3 font-weight-normal">Register</h2>
-		</div>
-		<form th:action="@{/register}" th:object="${user}" method="post" class="form-signin card">
+	<div class="wrapper fadeInDown">
+	  <div id="formContent">
+	    <!-- Tabs Titles -->
+	
+	    <!-- Icon -->
+	    <div class="fadeIn first">
+	      <!--<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />-->
+	    </div>
+	    
+	    <form th:action="@{/register}" th:object="${user}" method="post" class="form-signin mt-5">
 			<div class="form-label-group">
 				<input type="text" id="name" name="name" th:field="*{name}" th:placeholder="Name" class="form-control" autocomplete="off" required autofocus/>
-				<label for="name">Name</label>
 			</div>
 
 			<div class="form-label-group">
 				<input type="text" th:field="*{lastName}" placeholder="Last Name" id="lastName" name="lastName" class="form-control" autocomplete="off" required/>
-				<label for="lastName">Last Name</label>
 			</div>
 
 			<div class="form-label-group">
-				<input type="text" pattern="[a-zA-Z0-9.ñ]+@drotium.com" th:field="*{email}" placeholder="Email" id="email" name="email" class="form-control" autocomplete="off" required/>
-				<label for="email">Email</label>
+				<input type="text" pattern="[a-zA-Z0-9.ñ]+@supermercado.es" th:field="*{email}" placeholder="Email" id="email" name="email" class="form-control" autocomplete="off" required/>
 			</div>
 
 			<div class="form-label-group">
 				<input type="password" th:field="*{password}" th:placeholder="Password" id="password" name="password" class="form-control" autocomplete="off" required/> 
-				<label for="password">Password</label>
 			</div>
 			
 			<div class="form-label-group">
 				<input type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword" class="form-control" autocomplete="off"  required/> 
-				<label for="confirmPassword">Confirm Password</label>
 			</div>
 
-			<button type="submit" class="btn btn-lg btn-block text-white" style="background-color:#51C3F1;">Register User</button>
+			<input type="submit" class="fadeIn fourth" value="Register User">
 			
 			<div class="text-center">
 				<span class="text-center" th:utext="${successMessage}"></span>
 			</div>
 		</form>
-		
-		<div class="text-center mt-3 mb-2" style="position:absolute;left:0;right:0;">
-			<span class="text-muted mr-2">Already have an account?</span>
-			<a th:href="@{/login}">Log in</a>
-		</div>
-
-		<!-- <p class="mt-5 text-muted text-center">&copy; Drotium 2018-2019</p> -->
+	
+	    <!-- Remind Passowrd -->
+	    <div id="formFooter">
+	      <a class="underlineHover" th:href="@{/login}">¿Tienes unas cuenta?</a>
+	    </div>
+	
+	  </div>
 	</div>
 
-	<!-- Bootstrap core JavaScript-->
-	<script th:src="@{/libs/jquery/jquery.min.js}"></script>
-	<script th:src="@{/libs/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script th:src="@{/libs/jquery-easing/jquery.easing.min.js}"></script>
-	<script th:src="@{/js/register.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/js-cookie/js.cookie.js}"></script>	
 </body>
 </html>
