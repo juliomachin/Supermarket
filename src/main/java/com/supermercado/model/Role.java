@@ -1,4 +1,4 @@
-package com.supermarket.models;
+package com.supermercado.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ public class Role {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="role_id")
 	private int id;
 	
 	@Column(name="role")
@@ -32,7 +33,7 @@ public class Role {
 	}
 	
 	public boolean isAdmin() {
-		return role.equals("ROLE_ADMIN");
+		return role.equals("ADMIN");
 	}
 	
 	@Override

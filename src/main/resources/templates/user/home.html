@@ -1,1 +1,31 @@
-user
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Supermercado">
+<meta name="author" content="Fernando Seco Pan jaja xd lol">
+<meta name="_csrf" th:content="${_csrf.token}" />
+
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<title>Supermercado</title>
+
+<th:block th:include="includes/fragments :: links"></th:block>
+
+</head>
+<body class="fixed-nav sticky-footer sidenav-toggled" id="page-top">
+
+	<!-- Navigation-->
+	<th:block th:include="includes/fragments :: navbar"></th:block>
+
+
+	<th:block th:include="includes/fragments :: footer"></th:block>
+	
+	<th:block th:include="includes/fragments :: scripts"></th:block>
+	
+</body>
+</html>

@@ -1,11 +1,24 @@
-package com.supermarket.models;
+
+package com.supermercado.model;
 
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "user")
@@ -15,42 +28,40 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private long id;
-
+	
 	@Column(name = "email")
 	private String email;
-
+	
 	@Column(name = "password")
+	@Transient
 	private String password;
-
+	
 	@Column(name = "name")
 	private String name;
-
+	
 	@Column(name = "last_name")
 	private String lastName;
-
+	
 	@Column(name = "active")
-	private int active = 0;
-
+	private int active = 1;
+	
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creation = new Date();
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastConnect;
-
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
-	public User() {
-	
-	}
 	
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -94,6 +105,14 @@ public class User {
 		this.active = active;
 	}
 
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public Date getCreation() {
 		return creation;
 	}
@@ -110,21 +129,6 @@ public class User {
 		this.lastConnect = lastConnect;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", lastName="
-				+ lastName + ", active=" + active + ", creation=" + creation + ", lastConnect=" + lastConnect
-				+ ", roles=" + roles + "]";
-	}
-	
 	public boolean isAdmin() {
 		for (Role role : roles) {
 			if(role.isAdmin())
@@ -133,4 +137,8 @@ public class User {
 		return false;
 	}
 	
+	public String toString() {
+		return this.getName();
+	}
+
 }

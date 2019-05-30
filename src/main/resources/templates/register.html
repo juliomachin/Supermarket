@@ -5,65 +5,62 @@
 <head>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
+<meta name="description" content="Sign Up">
+<meta name="author" content="Supermercado">
 
-<title>Register</title>
+<title>Sign Up</title>
 
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/all.min.css}" />
+<th:block th:include="includes/fragments :: links"></th:block>
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
 
-<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
 </head>
-<body>
+
+<body style="overflow: hidden">
+	<img th:src="@{/rss/login.png}" class="img-fluid rounded rounded-circle h-50" style="position:absolute;left:16%;bottom:50%;z-index: 0;">
 	
-	<div class="wrapper fadeInDown">
-	  <div id="formContent">
-	    <!-- Tabs Titles -->
-	
-	    <!-- Icon -->
-	    <div class="fadeIn first">
-	      <!--<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />-->
-	    </div>
-	    
-	    <form th:action="@{/register}" th:object="${user}" method="post" class="form-signin mt-5">
+	<div class="container">
+		<div class="text-center mb-4">
+			<h2 class="h3 mb-3 font-weight-normal">Register</h2>
+		</div>
+		<form th:action="@{/register}" th:object="${user}" method="post" class="form-signin card">
 			<div class="form-label-group">
 				<input type="text" id="name" name="name" th:field="*{name}" th:placeholder="Name" class="form-control" autocomplete="off" required autofocus/>
+				<label for="name">Name</label>
 			</div>
 
 			<div class="form-label-group">
 				<input type="text" th:field="*{lastName}" placeholder="Last Name" id="lastName" name="lastName" class="form-control" autocomplete="off" required/>
+				<label for="lastName">Last Name</label>
 			</div>
 
 			<div class="form-label-group">
-				<input type="text" pattern="[a-zA-Z0-9.ñ]+@supermercado.es" th:field="*{email}" placeholder="Email" id="email" name="email" class="form-control" autocomplete="off" required/>
+				<input type="text" pattern="[a-zA-Z0-9.ñ]+@supermercado.com" th:field="*{email}" placeholder="Email" id="email" name="email" class="form-control" autocomplete="off" required/>
+				<label for="email">Email</label>
 			</div>
 
 			<div class="form-label-group">
 				<input type="password" th:field="*{password}" th:placeholder="Password" id="password" name="password" class="form-control" autocomplete="off" required/> 
+				<label for="password">Password</label>
 			</div>
 			
 			<div class="form-label-group">
 				<input type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword" class="form-control" autocomplete="off"  required/> 
+				<label for="confirmPassword">Confirm Password</label>
 			</div>
 
-			<input type="submit" class="fadeIn fourth" value="Register User">
+			<button type="submit" class="btn btn-lg btn-danger bg-danger btn-block text-white" style="background-color:#51C3F1;">Register User</button>
 			
 			<div class="text-center">
 				<span class="text-center" th:utext="${successMessage}"></span>
 			</div>
 		</form>
-	
-	    <!-- Remind Passowrd -->
-	    <div id="formFooter">
-	      <a class="underlineHover" th:href="@{/login}">¿Tienes unas cuenta?</a>
-	    </div>
-	
-	  </div>
+		
+		<div class="text-center mt-3 mb-2" style="position:absolute;left:0;right:0;">
+			<span class="text-muted mr-2">Already have an account?</span>
+			<a th:href="@{/login}">Log in</a>
+		</div>
 	</div>
 
-	<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/js-cookie/js.cookie.js}"></script>	
+	<th:block th:include="includes/fragments :: scripts"></th:block>
 </body>
 </html>
