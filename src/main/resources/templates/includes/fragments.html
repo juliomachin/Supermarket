@@ -17,24 +17,24 @@
 
 <div th:fragment="navbar">
 	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark justify-content-between">
-		<a class="navbar-brand" style="color:white">
+		<a class="navbar-brand" style="color:white" th:href=@{/user/home}>
 			<i class="fas fa-apple-alt"></i><span class="font-weight-bold ml-2">MAGORI</span>
 		</a>
 		<ul class="navbar-nav ml-auto text-light">
 			<li class="nav-item active">
-				<a class="nav-link" th:href="@{/profile/} + ${user.getId()}">
+				<a class="nav-link" th:href="@{/user/perfil}">
 					<i class="fas fa-user-cog"></i>
 					<span class="ml-1">Perfil</span>
 				</a>
 			</li>
 			<li class="nav-item active" style="color: white">
-				<a class="nav-link" href="#">
+				<a class="nav-link" th:href="@{/user/pedidos}">
 					<i class="fas fa-shopping-cart"></i>
 					<span class="ml-1">Pedidos</span>
 				</a>
 			</li>
 			<li class="nav-item active">
-				<a class="nav-link" href="#">
+				<a class="nav-link" th:href="@{/logout}">
 					<i class="fas fa-sign-out-alt"></i>
 				</a>
 			</li>

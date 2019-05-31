@@ -10,11 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.supermercado.model.User;
+import com.supermercado.service.PedidoService;
 import com.supermercado.service.ProductoService;
 import com.supermercado.service.UserService;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private PedidoService pedidoService;
 	
 	@Autowired
 	private UserService userService;
@@ -39,6 +43,42 @@ public class HomeController {
 		modelAndView.setView(new RedirectView("/login"));
 		return modelAndView;
 	}
+	
+	
+	@RequestMapping(value="/user/perfil", method = RequestMethod.GET)
+	public ModelAndView myProfile(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		if(user != null) {
+			modelAndView.addObject("user", user);
+			
+			modelAndView.setViewName("/user/perfil");
+			return modelAndView;
+		}
+		
+		modelAndView.setView(new RedirectView("/login"));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/user/pedidos", method = RequestMethod.GET)
+	public ModelAndView pedidos(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		if(user != null) {
+			modelAndView.addObject("user", user);
+			modelAndView.addObject("pedidos", pedidoService.findByUser(user));
+			
+			modelAndView.setViewName("/user/pedidos");
+			return modelAndView;
+		}
+		
+		modelAndView.setView(new RedirectView("/login"));
+		return modelAndView;
+	}
+
+	
 
 //	@RequestMapping(value = "/user/files/{id_folder}", method = RequestMethod.GET)
 //	public ModelAndView getFolderFiles(@PathVariable("id_folder") String nid) {

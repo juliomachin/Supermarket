@@ -7,16 +7,15 @@ import org.springframework.stereotype.Component;
 
 import com.supermercado.model.Producto;
 import com.supermercado.model.Role;
-import com.supermercado.model.User;
 import com.supermercado.repository.RoleRepository;
+import com.supermercado.service.PedidoService;
 import com.supermercado.service.ProductoService;
-import com.supermercado.service.UserService;
 
 @Component
 public class FillTables implements ApplicationListener<ApplicationReadyEvent>{
 
 	@Autowired
-	private UserService userService;
+	private PedidoService pedidoService;
 	
 	@Autowired
 	private RoleRepository roleRepository;
