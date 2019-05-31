@@ -1,14 +1,11 @@
 package com.supermercado.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.supermercado.model.Role;
 import com.supermercado.model.User;
 import com.supermercado.repository.RoleRepository;
 import com.supermercado.repository.UserRepository;
@@ -33,14 +30,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void save(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-		Role role = roleRepository.findByRole("USER");
-		if(role == null) {
-			role = new Role();
-			role.setRole("USER");
-			roleRepository.save(role);
-		}
-		user.setRoles(new HashSet<Role>(Arrays.asList(role)));
+		user.setRoles(roleRepository.findByRole("USER"));
 		userRepository.save(user);
 	}
 	

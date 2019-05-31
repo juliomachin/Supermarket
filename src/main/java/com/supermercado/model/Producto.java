@@ -23,7 +23,7 @@ public class Producto {
 	private String descripcion;
 	
 	@Column
-	private float precio;
+	private double precio;
 	
 	public Producto() {
 		
@@ -53,11 +53,11 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
-	public float getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	

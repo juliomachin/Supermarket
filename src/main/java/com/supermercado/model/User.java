@@ -136,9 +136,13 @@ public class User {
 		}
 		return false;
 	}
-	
+
+	@Override
 	public String toString() {
-		return this.getName();
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", lastName="
+				+ lastName + ", active=" + active + ", creation=" + creation + ", lastConnect=" + lastConnect
+				+ ", roles=" + roles + "]";
 	}
+	
 
 }

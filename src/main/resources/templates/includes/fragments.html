@@ -1,29 +1,54 @@
 <!-- Bootstrap core CSS-->
 <div th:fragment="links">
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/all.min.css}" />
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/webjars/font-awesome/css/all.min.css}" />
 </div>
 
 <div th:fragment="scripts">
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/js-cookie/js.cookie.js}"></script>	
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/js-cookie/js.cookie.js}"></script>
 </div>
 
 <div th:fragment="navbar">
-	
+	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark justify-content-between">
+		<a class="navbar-brand" style="color:white">
+			<i class="fas fa-apple-alt"></i><span class="font-weight-bold ml-2">MAGORI</span>
+		</a>
+		<ul class="navbar-nav ml-auto text-light">
+			<li class="nav-item active">
+				<a class="nav-link" th:href="@{/profile/} + ${user.getId()}">
+					<i class="fas fa-user-cog"></i>
+					<span class="ml-1">Perfil</span>
+				</a>
+			</li>
+			<li class="nav-item active" style="color: white">
+				<a class="nav-link" href="#">
+					<i class="fas fa-shopping-cart"></i>
+					<span class="ml-1">Pedidos</span>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="#">
+					<i class="fas fa-sign-out-alt"></i>
+				</a>
+			</li>
+		</ul>
+	</nav>
 </div>
 
 <div th:fragment="footer">
 	<footer class="sticky-footer">
 		<!-- Footer Links -->
-	    <div class="container-fluid bg-light">
-	
-	    </div>
+		<div class="container-fluid bg-light"></div>
 		<div class="container-fluid bg-light text-center">
-			<small>
-				<i class="fa fa-copyright"></i>
-				2018 Supermercado - All rights reserved
+			<small> <i class="fa fa-copyright"></i> 2018 Supermercado -
+				All rights reserved
 			</small>
 		</div>
 	</footer>

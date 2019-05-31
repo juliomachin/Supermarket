@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.supermercado.model.Producto;
-import com.supermercado.model.User;
 import com.supermercado.repository.ProductoRepository;
 
 @Service("productoService")
@@ -16,10 +15,13 @@ public class ProductoServiceImpl implements ProductoService{
 	private ProductoRepository productoRepository;
 	
 	@Override
-	public List<Producto> findAll(User user) {
-		if(user.isAdmin())
-			return productoRepository.findAll();
-		return null;
+	public List<Producto> findAll() {
+		return productoRepository.findAll();
+	}
+
+	@Override
+	public void save(Producto producto) {
+		productoRepository.save(producto);
 	}
 
 }

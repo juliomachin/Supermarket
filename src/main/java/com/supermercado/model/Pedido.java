@@ -18,14 +18,17 @@ import javax.persistence.TemporalType;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table(name = "carro")
-public class Carro {
+@Table(name = "pedido")
+public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private long id;
 
+	@Column
+	private int active;
+	
 	@ManyToMany(fetch=FetchType.EAGER)
 	private List<Producto> productos;
 	
@@ -36,7 +39,7 @@ public class Carro {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creation = new Date();
 
-	public Carro() {
+	public Pedido() {
 		
 	}
 
@@ -46,6 +49,14 @@ public class Carro {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	public List<Producto> getProductos() {

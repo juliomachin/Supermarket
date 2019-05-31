@@ -1,9 +1,5 @@
 package com.supermercado.controller;
 
-import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,15 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.supermercado.model.User;
+import com.supermercado.service.ProductoService;
 import com.supermercado.service.UserService;
 
 @Controller
 public class HomeController {
-
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProductoService productoService;
 
 	@RequestMapping(value="/user/home", method = RequestMethod.GET)
 	public ModelAndView myFiles(){
@@ -30,6 +28,10 @@ public class HomeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		if(user != null) {
+			
+			modelAndView.addObject("user", user);
+			modelAndView.addObject("productos", productoService.findAll());
+			
 			modelAndView.setViewName("/user/home");
 			return modelAndView;
 		}
