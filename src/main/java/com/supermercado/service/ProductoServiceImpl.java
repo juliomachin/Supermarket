@@ -29,4 +29,9 @@ public class ProductoServiceImpl implements ProductoService{
 		return productoRepository.getOne(id);
 	}
 
+	@Override
+	public void remove(Producto borrado) {
+		productoRepository.delete(borrado);
+	}
+
 }

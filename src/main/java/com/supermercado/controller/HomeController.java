@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.supermercado.model.Pedido;
+import com.supermercado.model.Producto;
 import com.supermercado.model.User;
 import com.supermercado.service.PedidoService;
 import com.supermercado.service.ProductoService;
@@ -94,10 +95,9 @@ public class HomeController {
 			userService.remove(borrado);
 		}
 		
-		modelAndView.setViewName("/home");
+		modelAndView.setViewName("/admin/settings");
 		return modelAndView;
 	}
-	
 	
 	@RequestMapping(value="/user/pedidos", method = RequestMethod.GET)
 	public ModelAndView pedidos(){
