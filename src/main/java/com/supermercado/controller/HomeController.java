@@ -86,15 +86,18 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-	
 	@RequestMapping(value="/delete/user/{id}", method = RequestMethod.GET)
 	public ModelAndView deleteUser(@PathVariable("id") long id){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		User borrado = userService.findOne(id);
+		
 		if(user.isAdmin() || user.equals(borrado)) {
 			userService.remove(borrado);
+			modelAndView.addObject("user", user);
+			modelAndView.addObject("usuarios", userService.findAll());
+			modelAndView.addObject("productos", productoService.findAll());
 		}
 		
 		modelAndView.setViewName("/admin/settings");
