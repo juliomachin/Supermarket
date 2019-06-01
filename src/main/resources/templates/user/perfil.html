@@ -22,42 +22,42 @@
 	<!-- Navigation-->
 	<th:block th:include="includes/fragments :: navbar"></th:block>
 
-
-	<div class="container-fluid">
-		<div class="card my-5">
-			<div class="card-header text-center ">
-				<span class="font-weight-bold text-uppercase" th:text="${user.getName()}"></span>
-			</div>
-			<div class="card-body">
-				<div class="container-fluid mb-5">
-					<div class="form-label-group">
-						<label for="nombre">Nombre</label>
-						<input type="text" placeholder="Nombre" id="nombre" class="form-control form-control-sm" autocomplete="off" th:value="${user.getName()}"/>
+	<div th:fragment="datos">
+		<div class="container-fluid">
+			<div class="card my-5">
+				<div class="card-header text-center ">
+					<span class="font-weight-bold text-uppercase" th:text="${user.getName()}"></span>
+				</div>
+				<div class="card-body">
+					<div class="container-fluid mb-5">
+						<div class="form-label-group">
+							<label for="nombre">Nombre</label>
+							<input type="text" placeholder="Nombre" id="nombre" class="form-control form-control-sm" autocomplete="off" th:value="${user.getName()}"/>
+						</div>
+						<div class="form-label-group my-2">
+							<label for="apellido">Apellido</label>
+							<input type="text" placeholder="Apellido" id="apellido" class="form-control form-control-sm" autocomplete="off" th:value="${user.getLastName()}"/>
+						</div>
 					</div>
-					<div class="form-label-group my-2">
-						<label for="apellido">Apellido</label>
-						<input type="text" placeholder="Apellido" id="apellido" class="form-control form-control-sm" autocomplete="off" th:value="${user.getLastName()}"/>
+					<div class="container-fluid">
+						<h3 class="text-center">Seguridad</h3>
+						<div class="form-label-group">
+							<label for="password">Nueva Contraseña</label>
+							<input id="password" type="password" placeholder="Nueva Contraseña" name="password" class="form-control form-control-sm" autocomplete="off" required />
+						</div>
+						<div class="form-label-group my-2">
+							<label for="confirmPassword">Confirmar Contraseña</label>
+							<input id="confirmPassword" type="password" placeholder="Confirmar Nueva Contraseña" name="confirmPassword" class="form-control form-control-sm" autocomplete="off" required />
+						</div>
 					</div>
 				</div>
-				<div class="container-fluid">
-					<h3 class="text-center">Seguridad</h3>
-					<div class="form-label-group">
-						<label for="password">Nueva Contraseña</label>
-						<input id="password" type="password" placeholder="Nueva Contraseña" name="password" class="form-control form-control-sm" autocomplete="off" required />
-					</div>
-					<div class="form-label-group my-2">
-						<label for="confirmPassword">Confirmar Contraseña</label>
-						<input id="confirmPassword" type="password" placeholder="Confirmar Nueva Contraseña" name="confirmPassword" class="form-control form-control-sm" autocomplete="off" required />
-					</div>
+				<div class="card-footer text-muted">
+					<button id="confirmar" type="button" class="btn btn-success float-right ml-2">Actualizar</button>
+					<button type="button" class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#eliminar">Eliminar Cuenta</button>
 				</div>
-			</div>
-			<div class="card-footer text-muted">
-				<button id="confirmar" type="button" class="btn btn-success float-right ml-2">Actualizar</button>
-				<button type="button" class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#eliminar">Eliminar Cuenta</button>
 			</div>
 		</div>
 	</div>
-
 
 	<div class="modal fade" id="eliminar" tabindex="-1" role="dialog"
 		aria-labelledby="eliminarCuenta" aria-hidden="true">

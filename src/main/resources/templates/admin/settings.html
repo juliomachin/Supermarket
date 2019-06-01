@@ -46,7 +46,7 @@
 						<td th:text="${usuario.isAdmin()}"></td>
 						<td th:text="${usuario.getLastConnect()}"></td>
 						<td>
-							<button id="del-usr" class="btn btn-sm btn-danger" th:data-id="${usuario.getId()}">Eliminar</button>
+							<button th:if="${not usuario.equals(user)}" id="del-usr" class="btn btn-sm btn-danger" th:data-id="${usuario.getId()}">Eliminar</button>
 						</td>
 					</tr>
 				</th:block>
@@ -57,30 +57,32 @@
 	<div class="container">
 		<button class="btn btn-sm btn-dark float-right" data-toggle="modal" data-target="#exampleModal">Añadir Producto</button>
 		<h2 class="text-uppercase font-weight-bold">Productos:</h2>
-		<table class="table">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col"></th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Descripcion</th>
-					<th scope="col">Precio</th>
-					<th scope="col">Opciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<th:block th:each="producto, iter : ${productos}">
+		<div th:fragment="productos">
+			<table class="table">
+				<thead class="thead-light">
 					<tr>
-						<th scope="row" th:text="${iter.count}"></th>
-						<td th:text="${producto.getNombre()}"></td>
-						<td th:text="${producto.getDescripcion()}"></td>
-						<td th:text="${producto.getPrecio()} + '€'"></td>
-						<td>
-							<button id="del-prod" class="btn btn-sm btn-danger" th:data-id="${producto.getId()}">Eliminar</button>
-						</td>
+						<th scope="col"></th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Descripcion</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Opciones</th>
 					</tr>
-				</th:block>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<th:block th:each="producto, iter : ${productos}">
+						<tr>
+							<th scope="row" th:text="${iter.count}"></th>
+							<td th:text="${producto.getNombre()}"></td>
+							<td th:text="${producto.getDescripcion()}"></td>
+							<td th:text="${producto.getPrecio()} + '€'"></td>
+							<td>
+								<button id="del-prod" class="btn btn-sm btn-danger" th:data-id="${producto.getId()}">Eliminar</button>
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
