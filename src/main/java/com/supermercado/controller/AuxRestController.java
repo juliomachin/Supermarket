@@ -1,58 +1,50 @@
 package com.supermercado.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-import com.supermercado.DemoApplication;
 import com.supermercado.model.User;
+import com.supermercado.service.ProductoService;
 import com.supermercado.service.UserService;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
 @RestController
 public class AuxRestController {
 
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProductoService productoService;
 
+	@RequestMapping(value="/admin/settings", method = RequestMethod.GET)
+	public ModelAndView admin(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		if(user != null) {
+			if(user.isAdmin()) {
+				modelAndView.addObject("user", user);
+				modelAndView.addObject("usuarios", userService.findAll());
+				modelAndView.addObject("productos", productoService.findAll());
+				modelAndView.setViewName("/admin/settings");
+				return modelAndView;
+			}
+			modelAndView.setView(new RedirectView("/user/home"));
+			return modelAndView;
+		}
+		modelAndView.setView(new RedirectView("/login"));
+		return modelAndView;
+	}
+	
+	
+	
+	
 //	@RequestMapping(path = "/user/file/data/{id_file}", method = RequestMethod.GET)
 //	public ResponseEntity<Map<String, Object>> autocompleteNames(@PathVariable("id_file") String nid){
 //		Long id = Long.parseLong(Encryptor.decrypt(nid));

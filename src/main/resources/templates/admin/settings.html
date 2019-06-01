@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Supermercado">
+<meta name="author" content="Fernando Seco Pan jaja xd lol">
+<meta name="_csrf" th:content="${_csrf.token}" />
+
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<title>Supermercado</title>
+
+<th:block th:include="includes/fragments :: links"></th:block>
+
+</head>
+<body class="fixed-nav sticky-footer sidenav-toggled" id="page-top">
+
+	<!-- Navigation-->
+	<th:block th:include="includes/fragments :: navbar"></th:block>
+	
+	<div class="container my-5">
+		<h2 class="text-uppercase font-weight-bold">Usuarios Registrados:</h2>
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Email</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellido</th>
+					<th scope="col">Admin</th>
+					<th scope="col">Ultima Conexion</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="usuario, iter : ${usuarios}">
+					<tr>
+						<th scope="row" th:text="${iter.count}"></th>
+						<td th:text="${usuario.getEmail()}"></td>
+						<td th:text="${usuario.getName()}"></td>
+						<td th:text="${usuario.getLastName()}"></td>
+						<td th:text="${usuario.isAdmin()}"></td>
+						<td th:text="${usuario.getLastConnect()}"></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="container">
+		<button class="btn btn-sm btn-dark float-right">Añadir Producto</button>
+		<h2 class="text-uppercase font-weight-bold">Productos:</h2>
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Descripcion</th>
+					<th scope="col">Precio</th>
+					<th scope="col">Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="producto, iter : ${productos}">
+					<tr>
+						<th scope="row" th:text="${iter.count}"></th>
+						<td th:text="${producto.getNombre()}"></td>
+						<td th:text="${producto.getDescripcion()}"></td>
+						<td th:text="${producto.getPrecio()}"></td>
+						<td>
+							<button class="btn btn-sm btn-danger">Eliminar</button>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	
+	<th:block th:include="includes/fragments :: scripts"></th:block>
+
+	<script type="text/javascript" th:src="@{/js/admin.js}"></script>
+</body>
+</html>

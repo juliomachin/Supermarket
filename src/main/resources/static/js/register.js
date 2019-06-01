@@ -3,8 +3,8 @@ $(document).ready(function () {
 	function validateEmail(){
 		var email = $("#email")[0];
 		
-		if(email.value.split("@")[1] !== "drotium.com"){
-			email.setCustomValidity("Email should be a drotium one.");
+		if(email.value.split("@")[1] !== "supermercado.com"){
+			email.setCustomValidity("Email should be a supermercado one.");
 		} else {
 			email.setCustomValidity('');
 		}

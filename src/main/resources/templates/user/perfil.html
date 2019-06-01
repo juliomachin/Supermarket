@@ -17,62 +17,72 @@
 <th:block th:include="includes/fragments :: links"></th:block>
 
 </head>
-<body class="fixed-nav sticky-footer sidenav-toggled" id="page-top">
+<body>
 
 	<!-- Navigation-->
 	<th:block th:include="includes/fragments :: navbar"></th:block>
 
 
-	<div class="container my-5 py-5">
-		<h2>
-			<i class="fas fa-user"></i>
-			<label class="text" th:text="${user.getName()}"> </label>
-			<button type="button" class="btn btn-outline-danger" 
-			data-toggle="modal" data-target="#eliminarCuenta">Eliminar Cuenta</button>
-		</h2>
-		<div class="row my-3">
-			<div class="col-sm-3">
-				
-				<div class="form-label-group">
-					<label for="password">Nueva Contraseña</label> <input type="password"
-						placeholder="Nueva Contraseña" id="password"
-						name="password" class="form-control" autocomplete="off" required />
+	<div class="container-fluid">
+		<div class="card my-5">
+			<div class="card-header text-center ">
+				<span class="font-weight-bold text-uppercase" th:text="${user.getName()}"></span>
+			</div>
+			<div class="card-body">
+				<div class="container-fluid mb-5">
+					<div class="form-label-group">
+						<label for="nombre">Nombre</label>
+						<input type="text" placeholder="Nombre" id="nombre" class="form-control form-control-sm" autocomplete="off"/>
+					</div>
+					<div class="form-label-group my-2">
+						<label for="apellido">Apellido</label>
+						<input type="text" placeholder="Apellido" id="apellido" class="form-control form-control-sm" autocomplete="off"/>
+					</div>
 				</div>
-				<div class="form-label-group my-2">
-					<label for="confirmPassword">Confirmar Nueva Contraseña</label> <input
-						type="password" placeholder="Confirmar Nueva Contraseña"
-						id="confirmPassword" name="confirmPassword" class="form-control"
-						autocomplete="off" required />
-
+				<div class="container-fluid">
+					<h3 class="text-center">Seguridad</h3>
+					<div class="form-label-group">
+						<label for="password">Nueva Contraseña</label>
+						<input type="password" placeholder="Nueva Contraseña" id="password" name="password" class="form-control form-control-sm" autocomplete="off" required />
+					</div>
+					<div class="form-label-group my-2">
+						<label for="confirmPassword">Confirmar Contraseña</label>
+						<input type="password" placeholder="Confirmar Nueva Contraseña" id="confirmPassword" name="confirmPassword" class="form-control form-control-sm" autocomplete="off" required />
+					</div>
 				</div>
-				<button type="button my-2" class="btn btn-success">Confirmar</button>
+			</div>
+			<div class="card-footer text-muted">
+				<button type="button" class="btn btn-success float-right ml-2">Actualizar</button>
+				<button type="button" class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#eliminar">Eliminar Cuenta</button>
 			</div>
 		</div>
-		<div class="mt-3"></div>
 	</div>
-	
-<div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminarCuenta" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="eliminarCuenta">Eliminar Cuenta</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
+	<div class="modal fade" id="eliminar" tabindex="-1" role="dialog"
+		aria-labelledby="eliminarCuenta" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="eliminarCuenta">Eliminar Cuenta ¿Esta seguro?</h5>
+					
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-dark"
+						data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-danger btn-sm" id="dlt-conf" th:data-id="${user.getId()}">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<th:block th:include="includes/fragments :: footer"></th:block>
 
 	<th:block th:include="includes/fragments :: scripts"></th:block>
-
+	
+	<script type="text/javascript" th:src="@{/js/perfil.js}"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,6 +62,22 @@ public class HomeController {
 		return modelAndView;
 	}
 	
+	
+	@RequestMapping(value="/delete/user/{id}", method = RequestMethod.GET)
+	public ModelAndView deleteUser(@PathVariable("id") long id){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		User borrado = userService.findOne(id);
+		if(user.isAdmin() || user.equals(borrado)) {
+			userService.remove(borrado);
+		}
+		
+		modelAndView.setViewName("/home");
+		return modelAndView;
+	}
+	
+	
 	@RequestMapping(value="/user/pedidos", method = RequestMethod.GET)
 	public ModelAndView pedidos(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -77,8 +94,6 @@ public class HomeController {
 		modelAndView.setView(new RedirectView("/login"));
 		return modelAndView;
 	}
-
-	
 
 //	@RequestMapping(value = "/user/files/{id_folder}", method = RequestMethod.GET)
 //	public ModelAndView getFolderFiles(@PathVariable("id_folder") String nid) {
