@@ -71,7 +71,7 @@
 						<td th:text="${producto.getDescripcion()}"></td>
 						<td th:text="${producto.getPrecio()} + '€'"></td>
 						<td>
-							<button class="btn btn-sm btn-danger">Eliminar</button>
+							<button id="del-prod" class="btn btn-sm btn-danger" th:data-id="${producto.getId()}">Eliminar</button>
 						</td>
 					</tr>
 				</th:block>
