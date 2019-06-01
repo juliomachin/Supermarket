@@ -7,4 +7,5 @@ import com.supermercado.model.User;
 
 public interface PedidoService {
 	List<Pedido> findByUser(User user);
+	void save(Pedido pedido);
 }

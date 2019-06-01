@@ -1,5 +1,7 @@
 package com.supermercado.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.supermercado.model.Pedido;
 import com.supermercado.model.User;
 import com.supermercado.service.PedidoService;
 import com.supermercado.service.ProductoService;
@@ -36,6 +39,24 @@ public class HomeController {
 			
 			modelAndView.addObject("user", user);
 			modelAndView.addObject("productos", productoService.findAll());
+			
+			List<Pedido> pedidos = pedidoService.findByUser(user);
+			Pedido pedido = null;
+			for (Pedido p : pedidos) {
+				if(p.getActive() == 1) {
+					pedido = p;
+					break;
+				}
+			}
+			
+			if(pedido != null) {
+				modelAndView.addObject("pedido", pedido);
+			} else {
+				pedido = new Pedido();
+				pedido.setActive(1);
+				pedido.setUser(user);
+				modelAndView.addObject("pedido", pedido);
+			}
 			
 			modelAndView.setViewName("/user/home");
 			return modelAndView;

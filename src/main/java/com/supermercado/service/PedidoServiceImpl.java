@@ -20,4 +20,9 @@ public class PedidoServiceImpl implements PedidoService{
 		return pedidoRepository.findByUser(user);
 	}
 
+	@Override
+	public void save(Pedido pedido) {
+		pedidoRepository.save(pedido);
+	}
+
 }

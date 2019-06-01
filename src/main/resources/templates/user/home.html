@@ -22,8 +22,10 @@
 	<!-- Navigation-->
 	<th:block th:include="includes/fragments :: navbar"></th:block>
 
-
+	
 	<div class="container my-5 py-5">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Pedido</button>
+
 		<div class="row">
 			<th:block th:each="producto : ${productos}">
 				<div class="col-sm-3 my-3">
@@ -42,7 +44,55 @@
 				</div>
 			</th:block>
 		</div>
-		
+	</div>
+	
+	<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title h4" id="myExtraLargeModalLabel">CESTA</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div id="contenido" class="modal-body">
+					<div th:fragment="cesta">
+						<div class="container">
+							<table class="table">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">Nombre</th>
+										<th scope="col">Descripcion</th>
+										<th scope="col">Precio</th>
+										<th scope="col">Opciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="producto, iter : ${pedido.getProductos()}">
+										<tr>
+											<th scope="row" th:text="${iter.count}"></th>
+											<td th:text="${producto.getNombre()}"></td>
+											<td th:text="${producto.getDescripcion()}"></td>
+											<td th:text="${producto.getPrecio()} + '&euro;'"></td>
+											<td>
+												<button id="quitar-prod" class="btn btn-sm btn-danger"
+													th:data-id="${producto.getId()}">X</button>
+											</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button th:if="${pedido.getActive() == 1}" type="button" id="procesar" class="btn btn-sm btn-success d-block mb-1">Procesar Pedido</button>
+							<span class="float-right" th:text="'Total: ' + ${pedido.getTotal()}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<th:block th:include="includes/fragments :: scripts"></th:block>
