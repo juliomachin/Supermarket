@@ -16,7 +16,6 @@
 
 <th:block th:include="includes/fragments :: links"></th:block>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
 </head>
 <body class="fixed-nav sticky-footer sidenav-toggled" id="page-top">
 
@@ -25,19 +24,19 @@
 
 
 	<div class="container my-5 py-5">
-		<div class="row my-1">
+		<div class="row">
 			<th:block th:each="producto : ${productos}">
-				<div class="col-sm-3 my-1">
-					<div class="card">
-						<h5 class="card-header" th:text="${producto.getNombre()}"></h5>
+				<div class="col-sm-3 my-3">
+					<div class="card h-100">
+						<h5 class="card-header text-truncate" th:text="${producto.getNombre()}" width="100"></h5>
 						<div class="card-body">
-							<p class="card-text" th:text="${producto.getDescripcion()}"></p>
+							<p class="card-text" th:text="${producto.getDescripcion()}" ></p>
 							<small>Cantidad:</small>
 							<input th:id=" 'cantidad-' + ${producto.getId()}" type="number" class="form-control form-control-sm w-25" value="1" min="1" max="99" >
 						</div>
 						<div class="card-footer">
 							<button id="add" type="button" class="btn btn-success btn-sm" th:data-id="${producto.getId()}">Añadir</button>
-							<p class="card-text float-right mt-2" th:text="${producto.getPrecio()}"></p>
+							<p class="card-text float-right mt-2" th:text="${producto.getPrecio()} + '€'"></p>
 						</div>
 					</div>
 				</div>
@@ -48,7 +47,6 @@
 
 	<th:block th:include="includes/fragments :: scripts"></th:block>
 	
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/home.js}"></script>
 </body>
 </html>

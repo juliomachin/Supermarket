@@ -69,7 +69,7 @@
 						<th scope="row" th:text="${iter.count}"></th>
 						<td th:text="${producto.getNombre()}"></td>
 						<td th:text="${producto.getDescripcion()}"></td>
-						<td th:text="${producto.getPrecio()}"></td>
+						<td th:text="${producto.getPrecio()} + '€'"></td>
 						<td>
 							<button class="btn btn-sm btn-danger">Eliminar</button>
 						</td>
