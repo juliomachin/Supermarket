@@ -3,12 +3,15 @@ package com.supermercado.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.supermercado.model.Producto;
 import com.supermercado.model.User;
 import com.supermercado.service.ProductoService;
 import com.supermercado.service.UserService;
@@ -42,6 +45,33 @@ public class AuxRestController {
 		return modelAndView;
 	}
 	
+	
+	@RequestMapping(value="/add/producto", method = RequestMethod.GET)
+	public String addProduct(@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion, @RequestParam("precio") double precio){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		if(user.isAdmin()) {
+			Producto p = new Producto();
+			p.setNombre(nombre);
+			p.setDescripcion(descripcion);
+			p.setPrecio(precio);
+			productoService.save(p);
+		}
+		return "";
+	}
+	
+	@RequestMapping(value="/delete/producto/{id}", method = RequestMethod.GET)
+	public String deleteProduct(@PathVariable("id") long id){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		
+		Producto borrado = productoService.findbyId(id);
+		if(user.isAdmin() && borrado != null) {
+			productoService.remove(borrado);
+		}
+		
+		return "";
+	}
 	
 	
 	
