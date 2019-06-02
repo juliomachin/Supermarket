@@ -108,10 +108,6 @@ public class FillTables implements ApplicationListener<ApplicationReadyEvent>{
 			productoService.save(producto);
 
 
-
-			////////////////////////////////////////////////////////////////////////////////////
-
-
 			producto = new Producto();
 			producto.setNombre("Fideo");
 			producto.setDescripcion("Fideo fino cabello angel pasta, paquete 750 g");
@@ -170,9 +166,6 @@ public class FillTables implements ApplicationListener<ApplicationReadyEvent>{
 			producto.setPrecio(3.79);
 			productoService.save(producto);
 
-
-
-			////////////////////////////////////////////////////////////////////////////////////
 
 
 			producto = new Producto();
